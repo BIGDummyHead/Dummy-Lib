@@ -1,12 +1,12 @@
 # Dummy-Lib
 
-### Dummy Lib is a library built off of dnlib, this was made to make adding methods, fields, properties, and instructions easy
-### I plan on working on Constructor and Type adding in the future
+Dummy Lib is a library built off of dnlib, this was made to make adding methods, fields, properties, and instructions easy
+I plan on working on Constructor and Type adding in the future
 
 ## Opening an AssemblyWriter
 
-### To open an Assembly Writer it is pretty simple
-### There are around 6 AssemblyWriter CTORs but I will just use the longest one so you can get an understanding
+To open an Assembly Writer it is pretty simple
+There are around 6 AssemblyWriter CTORs but I will just use the longest one so you can get an understanding
 
     //                     Should the assemblywriter throw its internal errors?  Should the Writer backup the targetfile?
     //AssemblyWriter(string targetFile, string output, bool throwInternalErrors, bool backUpFile)
@@ -20,7 +20,7 @@
     //find a TargetType in the target.dll
     TargetType typeTarg = new TargetType("Namespace.TypeName");
     
-### We also need a class that inherits IMethodCreater so let's do that first
+We also need a class that inherits IMethodCreater so let's do that first
 
     public class MethodToInsert : IMethodCreater
     {
@@ -38,7 +38,7 @@
         }
     }
     
-### Let's head back to our main code
+Let's head back to our main code
     
     //open a writer
     AssemblyWriter writer = new AssemblyWriter("target.dll");
@@ -58,7 +58,7 @@
 
 ## Creating A Field
     
-### Creating a field is pretty simple so let's do it
+Creating a field is pretty simple so let's do it
 
     //open a writer 
     AssemblyWriter writer = new AssemblyWriter("target.dll");
@@ -77,7 +77,7 @@
     
 ## Creating A Property
  
-### Creating a property is a little more difficult so let me show you how to do it
+Creating a property is a little more difficult so let me show you how to do it
 
       //First make a class that inherits the Property<T>
       
@@ -122,7 +122,7 @@
       }
     
     
-### ===============================================================================================
+__________________________________
 
 
       //now let's write the property
@@ -145,7 +145,7 @@
 
 ## Creating Instructions In A Method
 
-### I will now show you how to add instructions to a method
+I will now show you how to add instructions to a method
 
             //Open the writer
             AssemblyWriter writer = new AssemblyWriter("Target.dll");
