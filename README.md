@@ -11,7 +11,9 @@ There are around 6 AssemblyWriter CTORs but I will just use the longest one so y
     //                     Should the assemblywriter throw its internal errors?  Should the Writer backup the targetfile?
     //AssemblyWriter(string targetFile, string output, bool throwInternalErrors, bool backUpFile)
     AssemblyWriter writer = new AssemblyWriter("Target.dll", "dllToWriteTo.dll", true, true);
-    
+
+__________________________________
+
 ## Creating a Method 
 
     //open a writer
@@ -55,6 +57,7 @@ Let's head back to our main code
     //we can then save our method to the output by using the save method
     writer.Save();
     
+__________________________________
 
 ## Creating A Field
     
@@ -74,6 +77,8 @@ Creating a field is pretty simple so let's do it
     
     //save to the target
     writer.Save();
+    
+__________________________________
     
 ## Creating A Property
  
@@ -142,6 +147,7 @@ __________________________________
       //write to the target
       writer.Save();
     
+__________________________________
 
 ## Creating Instructions In A Method
 
@@ -170,6 +176,7 @@ I will now show you how to add instructions to a method
             
             //the writer contains another method for adding and removing instructions, 
             //this allows you to add multiple instructions or even remove multiple instructions at the same time
+__________________________________        
 
     
     
