@@ -34,7 +34,7 @@ We also need a class that inherits IMethodCreater so let's do that first
         //I will now make a method that adds
         
         //(Note: any attribute you add to this method will be applied to the method created)
-        public static int Add(int a, int b)
+        public static int Method(int a, int b)
         {
             return a + b;
         }
