@@ -7,12 +7,11 @@ I plan on working on Constructor and Type adding in the future
 
 To open an Assembly Writer it is pretty simple
 There are around 6 AssemblyWriter CTORs but I will just use the longest one so you can get an understanding
-    ```cs
+
     //                     Should the assemblywriter throw its internal errors?  Should the Writer backup the targetfile?
     //AssemblyWriter(string targetFile, string output, bool throwInternalErrors, bool backUpFile)
     AssemblyWriter writer = new AssemblyWriter("Target.dll", "dllToWriteTo.dll", true, true);
-   ```
-
+    
 __________________________________
 
 ## Creating a Method 
