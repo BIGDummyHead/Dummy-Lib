@@ -32,9 +32,9 @@ We also need a class that inherits MethodCreator so let's do that first
         //This override is the name of your method, the method's name will remain as "Method" until overriden
         public override string Name { get => "Add"; set => base.Name = value; }
         
-        //now the interface does not require you to have a method but the AssemblyWriter.CreateMethod does
-        //your methods name should be named "Method" and that is about it for requirements
-        //I will now make a method that adds
+        //now the abstract class does not require you to have a method but the AssemblyWriter.CreateMethod does
+        //your methods name should be named after the overriden name you provide and that is about it for requirements
+        //I will now make a method that adds two numbers together 
         
         //(Note: any attribute you add to this method will be applied to the method created)
         public static int Add(int a, int b)
