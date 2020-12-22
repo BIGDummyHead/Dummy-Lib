@@ -22,19 +22,22 @@ __________________________________
     //find a TargetType in the target.dll
     TargetType typeTarg = new TargetType("Namespace.TypeName");
     
-We also need a class that inherits IMethodCreater so let's do that first
+We also need a class that inherits MethodCreator so let's do that first
 
-    public class MethodToInsert : IMethodCreater
+    public class MethodToInsert : MethodCreator
     {
         //The interface requires you to add a Type[] property, this array should include the types of your methods arguments as follows
         public Type[] MethodArgs { get { return new Type[] { typeof(int), typeof(int) }; } }
+        
+        //This override is the name of your method, the method's name will remain as "Method" until overriden
+        public override string Name { get => "Add"; set => base.Name = value; }
         
         //now the interface does not require you to have a method but the AssemblyWriter.CreateMethod does
         //your methods name should be named "Method" and that is about it for requirements
         //I will now make a method that adds
         
         //(Note: any attribute you add to this method will be applied to the method created)
-        public static int Method(int a, int b)
+        public static int Add(int a, int b)
         {
             return a + b;
         }
@@ -48,7 +51,7 @@ Let's head back to our main code
     //find a TargetType in the target.dll
     TargetType typeTarg = new TargetType("Namespace.TypeName");
     
-    //make a usermethod with a name and IMethodCreater
+    //make a usermethod with a name and MethodCreator
     UserMethod yourMethod = new UserMethod(new MethodToInsert(), "AddNums");
     
     //let's add our method
