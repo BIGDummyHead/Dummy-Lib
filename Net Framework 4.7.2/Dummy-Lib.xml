@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>DummyLib</name>
+        <name>Dummy-Lib</name>
     </assembly>
     <members>
         <member name="T:DummyLib.AssemblyWriter">
@@ -371,11 +371,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="F:DummyLib.Property`1.Empty">
-            <summary>
-            An Empty Exception
-            </summary>
-        </member>
         <member name="M:DummyLib.Property`1.SetMethod">
             <summary>
             The method that is called when the property is Set
@@ -465,12 +460,6 @@
             </summary>
             <param name="targetType"></param>
         </member>
-        <member name="M:DummyLib.TargetType.#ctor(dnlib.DotNet.TypeDef)">
-            <summary>
-            
-            </summary>
-            <param name="targetType"></param>
-        </member>
         <member name="M:DummyLib.TargetType.#ctor(System.String)">
             <summary>
             
@@ -536,14 +525,9 @@
             <param name="method"></param>
             <param name="methodName"></param>
         </member>
-        <member name="M:DummyLib.UserMethod.#ctor(DummyLib.MethodCreator)">
-            <summary>
-            Uses the <see cref="P:DummyLib.MethodCreator.Name"/> you provided
-            </summary>
-            <param name="method"></param>
-        </member>
         <member name="T:DummyLib.UserType">
             <summary>
+            
             </summary>
         </member>
         <member name="P:DummyLib.UserType.Namespace">
