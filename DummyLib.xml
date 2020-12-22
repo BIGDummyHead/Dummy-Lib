@@ -1,0 +1,585 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DummyLib</name>
+    </assembly>
+    <members>
+        <member name="T:DummyLib.AssemblyWriter">
+            <summary>
+            A Writer that helps you Write to an Assembly to edit
+            </summary>
+        </member>
+        <member name="P:DummyLib.AssemblyWriter.TargetFile">
+            <summary>
+            The file to edit
+            </summary>
+        </member>
+        <member name="P:DummyLib.AssemblyWriter.ThrowWriterErrors">
+            <summary>
+            Should the <see cref="T:DummyLib.AssemblyWriter"/> Throw internal method errors 
+            </summary>
+        </member>
+        <member name="P:DummyLib.AssemblyWriter.Output">
+            <summary>
+            Where the file will be written to
+            </summary>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="targetfile"></param>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.#ctor(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="targetFile"></param>
+            <param name="outputFile"></param>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="targetFile"></param>
+            <param name="outputFile"></param>
+            <param name="throwInternalErrors"></param>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.#ctor(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="targetFile"></param>
+            <param name="throwInternalErrors"></param>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.#ctor(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="targetFile"></param>
+            <param name="throwInternalErrors"></param>
+            <param name="backUpFile"></param>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.#ctor(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="targetFile"></param>
+            <param name="output"></param>
+            <param name="throwInternalErrors"></param>
+            <param name="backUpFile"></param>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.ThrowException(System.Boolean,System.String)">
+            <summary>
+            If <paramref name="isBad"/> is True and <see cref="P:DummyLib.AssemblyWriter.ThrowWriterErrors"/> is True it will throw an exception
+            <para>If <paramref name="isBad"/> is True and <seealso cref="P:DummyLib.AssemblyWriter.ThrowWriterErrors"/> is False it will return True</para>
+            </summary>
+            <param name="isBad"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.Save">
+            <summary>
+            Saves all your work to the <see cref="P:DummyLib.AssemblyWriter.Output"/>
+            </summary>
+        </member>
+        <member name="P:DummyLib.AssemblyWriter.Module">
+            <summary>
+            The module you are working on
+            </summary>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.CreateMethod(DummyLib.TargetType,DummyLib.UserMethod)">
+            <summary>
+            Create A Method(<see cref="T:DummyLib.UserMethod"/>) Into a <seealso cref="T:DummyLib.TargetType"/>
+            <para>Your <see cref="P:DummyLib.UserMethod.Method"/> Should Always Contain A Method Named "Method" To Work Properly</para>
+            <para>This allows you to have multiple parameters!</para>
+            </summary>
+            <param name="target"></param>
+            <param name="userMethod"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.CreateField``1(DummyLib.TargetType,DummyLib.UserField{``0})">
+            <summary>
+            Creates a Field In The <paramref name="target"/> Type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="target"></param>
+            <param name="userField"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.CreateProperty``1(DummyLib.TargetType,DummyLib.Property{``0},dnlib.DotNet.MethodAttributes)">
+            <summary>
+            Creates a property inside the <paramref name="target"/> 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="target"></param>
+            <param name="userProp"></param>
+            <param name="attrs"></param>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.CopyConstructors(DummyLib.TargetType,DummyLib.IHasConstructors)">
+            <summary>
+            Copies the constructors from <paramref name="typeCTORS"/> and paste them to <paramref name="target"/>
+            </summary>
+            <param name="target"></param>
+            <param name="typeCTORS"></param>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.CreateType(DummyLib.UserType)">
+            <summary>
+            Creates a Type To The <see cref="P:DummyLib.AssemblyWriter.Module"/>
+            </summary>
+            <param name="userType">A User Type</param>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.AddExistingType(System.Type)">
+            <summary>
+            Add an existing <see cref="T:System.Type"/> to the <seealso cref="P:DummyLib.AssemblyWriter.Module"/>
+            <para>Does Not Copy Over Properties</para>
+            </summary>
+            <param name="existingType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.AddInstruction(DummyLib.TargetType,DummyLib.TargetMethod,DummyLib.InstructionPoint)">
+            <summary>
+            Adds an Instruction To A Method...
+            <para>This method has a chance of throwing many errors if you do not know where you should place your Instruction</para>
+            <para>Also see: <see cref="M:DummyLib.InstructionCreater.CreateInstruction(dnlib.DotNet.Emit.OpCode,System.Object,System.Int32)"/></para>
+            </summary>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.RemoveInstruction(DummyLib.TargetType,DummyLib.TargetMethod,System.Int32)">
+            <summary>
+            Removes An Instruction From A Method...
+            <para>This method has a chance of throwing many errors if you do not know where you should remvove your Instruction</para>
+            </summary>
+            <param name="target"></param>
+            <param name="method"></param>
+            <param name="removalPoint"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.AddInstructions(DummyLib.TargetType,DummyLib.TargetMethod,DummyLib.InstructionPoint[])">
+            <summary>
+            Adds multiple Instructions To A Method
+            <para>This method has a chance of throwing many errors if you do not know where you should add your Instructions</para>
+            </summary>
+            <param name="target"></param>
+            <param name="method"></param>
+            <param name="instructions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.RemoveInstructions(DummyLib.TargetType,DummyLib.TargetMethod,System.Int32[])">
+            <summary>
+            Removes Multiple Instructions From A Method...
+            <para>This method has a chance of throwing many errors if you do not know where you should remvove your Instructions</para>
+            </summary>
+            <param name="target"></param>
+            <param name="method"></param>
+            <param name="removalPoints"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.GetMethods(DummyLib.TargetType)">
+            <summary>
+            Returns <see cref="T:DummyLib.TargetMethod"/>[]
+            <para>Returns Specifically <seealso cref="M:DummyLib.TargetMethod.#ctor(System.String,dnlib.DotNet.TypeSig[])"/></para>
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.GetTypes">
+            <summary>
+            Get all the types from the <see cref="P:DummyLib.AssemblyWriter.Module"/> and returns them at <seealso cref="T:DummyLib.TargetType"/>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.GetFullName(dnlib.DotNet.TypeDef)">
+            <summary>
+            Get the full name of a <see cref="T:dnlib.DotNet.TypeDef"/>
+            </summary>
+            <param name="def"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.GetFullName(System.Type)">
+            <summary>
+            Get the full name of a <see cref="T:System.Type"/>
+            </summary>
+            <param name="def"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.Dispose">
+            <summary>
+            Dispose this <see cref="T:DummyLib.AssemblyWriter"/>
+            </summary>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.SaveAndDispose">
+            <summary>
+            Saves the Module <see cref="M:DummyLib.AssemblyWriter.Save"/> -> and <seealso cref="M:DummyLib.AssemblyWriter.Dispose"/>
+            </summary>
+        </member>
+        <member name="T:DummyLib.CreatedMethod">
+            <summary>
+            Generated by <see cref="M:DummyLib.AssemblyWriter.CreateMethod(DummyLib.TargetType,DummyLib.UserMethod)"/>
+            </summary>
+        </member>
+        <member name="P:DummyLib.CreatedMethod.Target">
+            <summary>
+            The <see cref="T:DummyLib.TargetMethod"/> generated 
+            </summary>
+        </member>
+        <member name="P:DummyLib.CreatedMethod.MethodCreated">
+            <summary>
+            The <see cref="T:dnlib.DotNet.MethodDef"/> generated
+            </summary>
+        </member>
+        <member name="M:DummyLib.CreatedMethod.#ctor(DummyLib.TargetMethod,dnlib.DotNet.MethodDef)">
+            <summary>
+            
+            </summary>
+            <param name="target"></param>
+            <param name="created"></param>
+        </member>
+        <member name="T:DummyLib.ExistingType">
+            <summary>
+            An Existing Type
+            </summary>
+        </member>
+        <member name="M:DummyLib.ExistingType.#ctor(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="existingType"></param>
+        </member>
+        <member name="P:DummyLib.ExistingType.Fields">
+            <summary>
+            Fields
+            </summary>
+        </member>
+        <member name="P:DummyLib.ExistingType.Methods">
+            <summary>
+            Methods
+            </summary>
+        </member>
+        <member name="P:DummyLib.ExistingType.Properties">
+            <summary>
+            Properties
+            </summary>
+        </member>
+        <member name="P:DummyLib.ExistingType.Events">
+            <summary>
+            Events
+            </summary>
+        </member>
+        <member name="T:DummyLib.Field`1">
+            <summary>
+            A Field For <see cref="T:DummyLib.AssemblyWriter"/> (<typeparamref name="T"/>)
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:DummyLib.Field`1.Val">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DummyLib.Field`1.FieldName">
+            <summary>
+            The name of the field
+            </summary>
+        </member>
+        <member name="M:DummyLib.Field`1.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="fieldName"></param>
+        </member>
+        <member name="T:DummyLib.IHasConstructors">
+            <summary>
+            Specifies That The Type Has Constructors To Copy
+            <para>Does Not Require Any Data</para>
+            </summary>
+        </member>
+        <member name="T:DummyLib.InstructionCreater">
+            <summary>
+            Creates Instruction With Pointers 
+            </summary>
+        </member>
+        <member name="M:DummyLib.InstructionCreater.CreateInstruction(dnlib.DotNet.Emit.OpCode,System.Object,System.Int32)">
+            <summary>
+            Creates a <see cref="T:DummyLib.InstructionPoint"/>
+            </summary>
+            <param name="opcode"></param>
+            <param name="opperand"></param>
+            <param name="entryPoint"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.InstructionCreater.CreateEmptyInstruction(dnlib.DotNet.Emit.OpCode,System.Int32)">
+            <summary>
+            Creats an Empty <see cref="T:DummyLib.InstructionPoint"/>
+            </summary>
+            <param name="opcode"></param>
+            <param name="entryPoint"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DummyLib.InstructionPoint">
+            <summary>
+            Used in <see cref="T:DummyLib.AssemblyWriter"/>
+            </summary>
+        </member>
+        <member name="P:DummyLib.InstructionPoint.Instruction">
+            <summary>
+            The instruction that is created
+            </summary>
+        </member>
+        <member name="P:DummyLib.InstructionPoint.EntryPoint">
+            <summary>
+            Where the instruction should be placed
+            </summary>
+        </member>
+        <member name="M:DummyLib.InstructionPoint.#ctor(dnlib.DotNet.Emit.Instruction,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="instruction"></param>
+            <param name="entryPoint"></param>
+        </member>
+        <member name="T:DummyLib.MethodCreator">
+            <summary>
+            An Abstract Class For <see cref="T:DummyLib.UserMethod"/>
+            </summary>
+        </member>
+        <member name="P:DummyLib.MethodCreator.MethodArgs">
+            <summary>
+            The Methods Arguments Important For Finding Methods
+            </summary>
+        </member>
+        <member name="P:DummyLib.MethodCreator.Name">
+            <summary>
+            The name of the method
+            <para>Base Name : "Method"</para>
+            </summary>
+        </member>
+        <member name="T:DummyLib.Property`1">
+            <summary>
+            An abstract class, this class is meant to generate properties inside of your <see cref="T:DummyLib.TargetType"/>
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:DummyLib.Property`1.Val">
+            <summary>
+            Property Gotten By <see cref="M:DummyLib.AssemblyWriter.CreateProperty``1(DummyLib.TargetType,DummyLib.Property{``0},dnlib.DotNet.MethodAttributes)"/>
+            </summary>
+        </member>
+        <member name="M:DummyLib.Property`1.GetMethod">
+            <summary>
+            The method that is called when the property is Gotten
+            <para>You can call throw <see cref="T:System.NotImplementedException"/>("EMPTY"); and the Get method will be empty</para>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:DummyLib.Property`1.Empty">
+            <summary>
+            An Empty Exception
+            </summary>
+        </member>
+        <member name="M:DummyLib.Property`1.SetMethod">
+            <summary>
+            The method that is called when the property is Set
+            <para>You can call throw <see cref="T:System.NotImplementedException"/>("EMPTY"); and the Get method will be empty</para>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DummyLib.Property`1.Name">
+            <summary>
+            The name of the property
+            </summary>
+        </member>
+        <member name="M:DummyLib.Property`1.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="T:DummyLib.TargetMethod">
+            <summary>
+            A Method to target from a <see cref="T:System.Type"/>
+            </summary>
+        </member>
+        <member name="P:DummyLib.TargetMethod.MethodName">
+            <summary>
+            The Method's Name
+            </summary>
+        </member>
+        <member name="P:DummyLib.TargetMethod.MethodArgs">
+            <summary>
+            The Method's Type Arguments
+            </summary>
+        </member>
+        <member name="P:DummyLib.TargetMethod.MethodArgs_Sig">
+            <summary>
+            The Method's TypeSig Arguments
+            </summary>
+        </member>
+        <member name="P:DummyLib.TargetMethod.Method">
+            <summary>
+            The Method's Signature : Returns Null If Not Assigned 
+            </summary>
+        </member>
+        <member name="M:DummyLib.TargetMethod.#ctor(System.String,System.Type[])">
+            <summary>
+            
+            </summary>
+            <param name="methodName"></param>
+            <param name="methodArguments"></param>
+        </member>
+        <member name="M:DummyLib.TargetMethod.#ctor(System.String,dnlib.DotNet.TypeSig[])">
+            <summary>
+            
+            </summary>
+            <param name="methodName"></param>
+            <param name="methodArguments"></param>
+        </member>
+        <member name="M:DummyLib.TargetMethod.#ctor(System.String,dnlib.DotNet.MethodSig,dnlib.DotNet.TypeSig[])">
+            <summary>
+            
+            </summary>
+            <param name="methodName"></param>
+            <param name="methodSig"></param>
+            <param name="methodArguments"></param>
+        </member>
+        <member name="M:DummyLib.TargetMethod.#ctor(System.String,dnlib.DotNet.MethodSig,System.Type[])">
+            <summary>
+            
+            </summary>
+            <param name="methodName"></param>
+            <param name="methodSig"></param>
+            <param name="methodArguments"></param>
+        </member>
+        <member name="T:DummyLib.TargetType">
+            <summary>
+            Helps the <see cref="T:DummyLib.AssemblyWriter"/> Find Types Easily
+            </summary>
+        </member>
+        <member name="P:DummyLib.TargetType.TargetName">
+            <summary>
+            The name of the Target
+            </summary>
+        </member>
+        <member name="M:DummyLib.TargetType.#ctor(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="targetType"></param>
+        </member>
+        <member name="M:DummyLib.TargetType.#ctor(dnlib.DotNet.TypeDef)">
+            <summary>
+            
+            </summary>
+            <param name="targetType"></param>
+        </member>
+        <member name="M:DummyLib.TargetType.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="targetName"></param>
+        </member>
+        <member name="T:DummyLib.UserField`1">
+            <summary>
+            Generates a User Field
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:DummyLib.UserField`1.Field">
+            <summary>
+            The Field that gets generated
+            </summary>
+        </member>
+        <member name="P:DummyLib.UserField`1.Value">
+            <summary>
+            The initial value of the Field
+            </summary>
+        </member>
+        <member name="P:DummyLib.UserField`1.Attributes">
+            <summary>
+            The Attributes of the <see cref="P:DummyLib.UserField`1.Field"/>
+            </summary>
+        </member>
+        <member name="M:DummyLib.UserField`1.#ctor(DummyLib.Field{`0},`0,dnlib.DotNet.FieldAttributes)">
+            <summary>
+            
+            </summary>
+            <param name="field"></param>
+            <param name="value"></param>
+            <param name="attributes"></param>
+        </member>
+        <member name="M:DummyLib.UserField`1.#ctor(System.String,`0,dnlib.DotNet.FieldAttributes)">
+            <summary>
+            Make a <see cref="T:DummyLib.Field`1"/> By <paramref name="fieldName"/>
+            </summary>
+            <param name="fieldName"></param>
+            <param name="value"></param>
+            <param name="attributes"></param>
+        </member>
+        <member name="T:DummyLib.UserMethod">
+            <summary>
+            A UserMethod That Takes In <see cref="T:DummyLib.MethodCreator"/>, <seealso cref="T:System.String"/>
+            </summary>
+        </member>
+        <member name="P:DummyLib.UserMethod.Method">
+            <summary>
+            The Type that inherits this interface... Should contain a method named "Method"
+            </summary>
+        </member>
+        <member name="P:DummyLib.UserMethod.MethodName">
+            <summary>
+            The methods name
+            </summary>
+        </member>
+        <member name="M:DummyLib.UserMethod.#ctor(DummyLib.MethodCreator,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="method"></param>
+            <param name="methodName"></param>
+        </member>
+        <member name="M:DummyLib.UserMethod.#ctor(DummyLib.MethodCreator)">
+            <summary>
+            Uses the <see cref="P:DummyLib.MethodCreator.Name"/> you provided
+            </summary>
+            <param name="method"></param>
+        </member>
+        <member name="T:DummyLib.UserType">
+            <summary>
+            Contains Data For <see cref="!:"/>
+            </summary>
+        </member>
+        <member name="P:DummyLib.UserType.Namespace">
+            <summary>
+            The namespace of your user type
+            </summary>
+        </member>
+        <member name="P:DummyLib.UserType.Name">
+            <summary>
+            The name of the type
+            </summary>
+        </member>
+        <member name="P:DummyLib.UserType.Attributes">
+            <summary>
+            The Attributes of The Type
+            </summary>
+        </member>
+        <member name="P:DummyLib.UserType.FullName">
+            <summary>
+            Returns The Full Name Of The User Type
+            </summary>
+        </member>
+        <member name="M:DummyLib.UserType.#ctor(System.String,System.String,dnlib.DotNet.TypeAttributes)">
+            <summary>
+            Makes A Data Container For <see cref="!:"/>
+            </summary>
+            <param name="_namespace"></param>
+            <param name="name"></param>
+            <param name="attrs"></param>
+        </member>
+        <member name="M:DummyLib.UserType.#ctor(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+        </member>
+    </members>
+</doc>
