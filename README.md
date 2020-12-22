@@ -181,6 +181,87 @@ I will now show you how to add instructions to a method
             //this allows you to add multiple instructions or even remove multiple instructions at the same time
 __________________________________        
 
+## Creating A Type
+
+This is pretty simple and I made it this way to avoid confusion
+
+            //open a writer
+            AssemblyWriter writer = new AssemblyWriter("Target.dll");
+            
+            //we can either copy an existing type or create our own type in it's own namespace and have it's own name!
+            //to create it is simple
+            
+            UserType userT = new UserType("Namespace", "Name", TypeAttributes);
+            TypeDef tDef = writer.CreateType(userT);
+            
+            //you have successfully created a type and all you need to do is save your Assembly -> writer.Save() | writer.SaveAndDispose()
+            //optionally doing 
+            UserType userT = new UserType(typeof(ExistingType));
+            
+            //this will take the name of the already existing type and apply its same Attributes to it
+            TypeDef tdef = writer.CreateType(userT);
+            
+            writer.Save();
     
-    
-    
+__________________________________        
+
+## Adding An Existing Type
+
+This is even simpiler than creating your own Type
+
+            //open a writer
+            AssemblyWriter writer = new AssemblyWriter("Target.dll");
+            
+            //does not copy over the properties from the existing type will include in future update
+            TypeDef tDef = writer.AddExistingType(typeof(ExistingType));
+            
+            //save to file
+            writer.Save();
+__________________________________        
+
+## Adding Constructors To A TargetType
+
+            //Create a class with the interface IHasConstructors
+            
+            public class CTORHolder : IHasConstructors
+            {
+                public CTORHolder(string main)
+                {
+                
+                }
+                
+                public CTORHolder(int i)
+                {
+                
+                }
+            }
+            
+            //open a writer
+            AssemblyWriter writer = new AssemblyWriter("Target.dll");
+            
+            TargetType tar = new TargetType("Namespace.Name");
+            
+            //just make a new instance of CTORHolder doesnt matter which one
+            IHasConstructors hasCTORS = new CTORHolder(0);
+            
+            //Copied!
+            writer.CopyConstructors(tar, hasCTORS);
+            
+            //save to dll
+            writer.Save();
+            
+__________________________________     
+
+            
+## Changes
+
+AssemblyWriter now Inherits IDisposable --> using(AssemblyWriter writer = new AssemblyWriter("Target.dll")) -> Disposes
+AssemblyWriter also allows you to save and then dispose at the same time! -> writer.SaveAndDispose();
+
+AssemblyWriter also includes two new static methods -> AssemblyWriter.GetFullName(Type t); AssemblyWriter.GetFullName(TypeDef tDef);
+
++UserType Class
++ExistingType Class
++IHasConstructors Interface
+
+More To Come!
