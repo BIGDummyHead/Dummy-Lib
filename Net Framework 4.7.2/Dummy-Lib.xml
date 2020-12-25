@@ -129,10 +129,19 @@
             </summary>
             <param name="userType">A User Type</param>
         </member>
+        <member name="M:DummyLib.AssemblyWriter.AddExistingType(System.Type,System.String,System.String)">
+            <summary>
+            Add an existing <see cref="T:System.Type"/> to the <seealso cref="P:DummyLib.AssemblyWriter.Module"/> with a different namespace and name
+            <para>Does not work with Inheritance</para>
+            </summary>
+            <param name="existingType"></param>
+            <param name="newNameSpace"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
         <member name="M:DummyLib.AssemblyWriter.AddExistingType(System.Type)">
             <summary>
-            Add an existing <see cref="T:System.Type"/> to the <seealso cref="P:DummyLib.AssemblyWriter.Module"/>
-            <para>Does Not Copy Over Properties</para>
+            Adds an existing <see cref="T:System.Type"/> to the <seealso cref="P:DummyLib.AssemblyWriter.Module"/>
             </summary>
             <param name="existingType"></param>
             <returns></returns>
@@ -244,6 +253,14 @@
             
             </summary>
             <param name="existingType"></param>
+        </member>
+        <member name="M:DummyLib.ExistingType.#ctor(System.Type,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="existingType"></param>
+            <param name="_namespace"></param>
+            <param name="name"></param>
         </member>
         <member name="P:DummyLib.ExistingType.Fields">
             <summary>
@@ -359,6 +376,15 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="M:DummyLib.Property`1.CreateEmptyProperty(DummyLib.AssemblyWriter,DummyLib.TargetType,System.String,dnlib.DotNet.MethodAttributes)">
+            <summary>
+            Creates an Empty Property Of Type <typeparamref name="T"/>
+            </summary>
+            <param name="writer"></param>
+            <param name="target"></param>
+            <param name="propName">Name of said Property</param>
+            <param name="propAttrs">Property Attributes</param>
+        </member>
         <member name="P:DummyLib.Property`1.Val">
             <summary>
             Property Gotten By <see cref="M:DummyLib.AssemblyWriter.CreateProperty``1(DummyLib.TargetType,DummyLib.Property{``0},dnlib.DotNet.MethodAttributes)"/>
@@ -388,6 +414,34 @@
             
             </summary>
             <param name="name"></param>
+        </member>
+        <member name="T:DummyLib.EmptyProperty`1">
+            <summary>
+            An Empty Property
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:DummyLib.EmptyProperty`1.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="P:DummyLib.EmptyProperty`1.Val">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:DummyLib.EmptyProperty`1.GetMethod">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.EmptyProperty`1.SetMethod">
+            <summary>
+            
+            </summary>
         </member>
         <member name="T:DummyLib.TargetMethod">
             <summary>
@@ -460,6 +514,12 @@
             </summary>
             <param name="targetType"></param>
         </member>
+        <member name="M:DummyLib.TargetType.#ctor(dnlib.DotNet.TypeDef)">
+            <summary>
+            
+            </summary>
+            <param name="targetType"></param>
+        </member>
         <member name="M:DummyLib.TargetType.#ctor(System.String)">
             <summary>
             
@@ -527,7 +587,6 @@
         </member>
         <member name="T:DummyLib.UserType">
             <summary>
-            
             </summary>
         </member>
         <member name="P:DummyLib.UserType.Namespace">
@@ -563,6 +622,14 @@
             
             </summary>
             <param name="type"></param>
+        </member>
+        <member name="M:DummyLib.UserType.#ctor(System.Type,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+            <param name="_namespace"></param>
+            <param name="name"></param>
         </member>
     </members>
 </doc>
