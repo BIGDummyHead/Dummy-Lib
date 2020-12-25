@@ -212,8 +212,8 @@ This is even simpiler than creating your own Type
             //open a writer
             AssemblyWriter writer = new AssemblyWriter("Target.dll");
             
-            //does not copy over the properties from the existing type will include in future update
-            TypeDef tDef = writer.AddExistingType(typeof(ExistingType));
+            //Does not support inheritance of other classes support coming VERY soon
+            TypeDef tDef = writer.AddExistingType(typeof(YourExistingType));
             
             //save to file
             writer.Save();
@@ -263,5 +263,37 @@ AssemblyWriter also includes two new static methods -> AssemblyWriter.GetFullNam
 +UserType Class
 +ExistingType Class
 +IHasConstructors Interface
+
+__________________________________     
+
+public sealed class EmptyProperty<T> : Property<T> -> Provides an empty property
+Property<T> contains a new method named "CreateEmptyProperty" -> Property<string>.CreateEmptyProperty(AssemblyWriter writer, TargetType target, string propName, MethodAttributes attrs); -> Returns and Creates A PropertyDef inside of the TargetType
+
+__________________________________   
+
+## Coming Soon | 
+
+I will soon add support for Existing Type with inheritance it will look something like this
+
+            public class A 
+            {
+            
+            }
+            
+            public class B : A, IA 
+            {
+            
+            }
+            
+            public interface IA
+            {
+            
+            }
+            
+            AssemblyWriter writer = new AssemblyWriter("Target.dll");
+            
+            writer.AddExistingType(typeof(B)); //this will make a loop that will keep adding types, to support said inheritance, so adding the Type B will also add Type A and the interface IA
+            
+            writer.SaveAndDispose();
 
 More To Come!
