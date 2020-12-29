@@ -83,6 +83,43 @@
             Saves all your work to the <see cref="P:DummyLib.AssemblyWriter.Output"/>
             </summary>
         </member>
+        <member name="M:DummyLib.AssemblyWriter.Dispose">
+            <summary>
+            Dispose this <see cref="T:DummyLib.AssemblyWriter"/>
+            </summary>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.SaveAndDispose">
+            <summary>
+            Saves the Module <see cref="M:DummyLib.AssemblyWriter.Save"/> -> and <seealso cref="M:DummyLib.AssemblyWriter.Dispose"/>
+            </summary>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.CanSave(System.Boolean)">
+            <summary>
+            Does not acutally save to your current <see cref="P:DummyLib.AssemblyWriter.Output"/> but sees if you can save to your <seealso cref="P:DummyLib.AssemblyWriter.Output"/>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DummyLib.AssemblyWriter.CanWrite">
+            <summary>
+            Same as <see cref="M:DummyLib.AssemblyWriter.CanSave(System.Boolean)"/> but does not include reasoning
+            </summary>
+        </member>
+        <member name="P:DummyLib.AssemblyWriter.DisposeSave">
+            <summary>
+            Save on Dispose
+            </summary>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.TrySave">
+            <summary>
+            WARNING: TAKES EXTRA LONG TO SAVE BUT ENSURES THE MODULE WRITER DOES NOT THROW ERRORS
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DummyLib.AssemblyWriter.Context">
+            <summary>
+            The context of the Module
+            </summary>
+        </member>
         <member name="P:DummyLib.AssemblyWriter.Module">
             <summary>
             The module you are working on
@@ -129,7 +166,7 @@
             </summary>
             <param name="userType">A User Type</param>
         </member>
-        <member name="M:DummyLib.AssemblyWriter.AddExistingType(System.Type,System.String,System.String)">
+        <member name="M:DummyLib.AssemblyWriter.AddExistingType(System.Type,System.String,System.String,DummyLib.ITypeResolver)">
             <summary>
             Add an existing <see cref="T:System.Type"/> to the <seealso cref="P:DummyLib.AssemblyWriter.Module"/> with a different namespace and name
             <para>Does not work with Inheritance</para>
@@ -137,20 +174,30 @@
             <param name="existingType"></param>
             <param name="newNameSpace"></param>
             <param name="name"></param>
+            <param name="resolver">If not supplied, the Writer will supply one for you <see cref="T:DummyLib.BasicTypeResolver"/></param>
             <returns></returns>
         </member>
-        <member name="M:DummyLib.AssemblyWriter.AddExistingType(System.Type)">
+        <member name="M:DummyLib.AssemblyWriter.AddExistingType(dnlib.DotNet.ITypeDefOrRef,DummyLib.ITypeResolver)">
+            <summary>
+            
+            </summary>
+            <param name="existingType"></param>
+            <param name="resolver"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.AddExistingType(System.Type,DummyLib.ITypeResolver)">
             <summary>
             Adds an existing <see cref="T:System.Type"/> to the <seealso cref="P:DummyLib.AssemblyWriter.Module"/>
             </summary>
             <param name="existingType"></param>
+            <param name="resolver"></param>
             <returns></returns>
         </member>
         <member name="M:DummyLib.AssemblyWriter.AddInstruction(DummyLib.TargetType,DummyLib.TargetMethod,DummyLib.InstructionPoint)">
             <summary>
             Adds an Instruction To A Method...
             <para>This method has a chance of throwing many errors if you do not know where you should place your Instruction</para>
-            <para>Also see: <see cref="M:DummyLib.InstructionCreater.CreateInstruction(dnlib.DotNet.Emit.OpCode,System.Object,System.Int32)"/></para>
+            <para>Also see: <see cref="M:DummyLib.InstructionCreator.CreateInstruction(dnlib.DotNet.Emit.OpCode,System.Object,System.Int32)"/></para>
             </summary>
         </member>
         <member name="M:DummyLib.AssemblyWriter.RemoveInstruction(DummyLib.TargetType,DummyLib.TargetMethod,System.Int32)">
@@ -193,7 +240,7 @@
         </member>
         <member name="M:DummyLib.AssemblyWriter.GetTypes">
             <summary>
-            Get all the types from the <see cref="P:DummyLib.AssemblyWriter.Module"/> and returns them at <seealso cref="T:DummyLib.TargetType"/>
+            Get all the types from the <see cref="P:DummyLib.AssemblyWriter.Module"/> and returns them as <seealso cref="T:DummyLib.TargetType"/>
             </summary>
             <returns></returns>
         </member>
@@ -211,15 +258,70 @@
             <param name="def"></param>
             <returns></returns>
         </member>
-        <member name="M:DummyLib.AssemblyWriter.Dispose">
+        <member name="T:DummyLib.TypeData">
             <summary>
-            Dispose this <see cref="T:DummyLib.AssemblyWriter"/>
+            Type Import Data
             </summary>
         </member>
-        <member name="M:DummyLib.AssemblyWriter.SaveAndDispose">
+        <member name="P:DummyLib.TypeData.Namespace">
             <summary>
-            Saves the Module <see cref="M:DummyLib.AssemblyWriter.Save"/> -> and <seealso cref="M:DummyLib.AssemblyWriter.Dispose"/>
+            Namespace of the Type - Can return null or <see cref="F:System.String.Empty"/>
             </summary>
+        </member>
+        <member name="P:DummyLib.TypeData.TypeName">
+            <summary>
+            Name of the Type
+            </summary>
+        </member>
+        <member name="P:DummyLib.TypeData.ImportType">
+            <summary>
+            Type to import
+            </summary>
+        </member>
+        <member name="P:DummyLib.TypeData.FullName">
+            <summary>
+            The Full Name Of The Type
+            </summary>
+        </member>
+        <member name="M:DummyLib.TypeData.#ctor(dnlib.DotNet.ITypeDefOrRef)">
+            <summary>
+            Import Data On <see cref="T:System.Type"/> <paramref name="t"/>
+            </summary>
+            <param name="t"></param>
+        </member>
+        <member name="T:DummyLib.BasicTypeResolver">
+            <summary>
+            Resolves imported Assemblies
+            </summary>
+        </member>
+        <member name="P:DummyLib.BasicTypeResolver.ResolvedTypes">
+            <summary>
+            The Resolved Type Names
+            </summary>
+        </member>
+        <member name="M:DummyLib.BasicTypeResolver.ResolveType(DummyLib.AssemblyWriter,DummyLib.TypeData,DummyLib.ITypeResolver)">
+            <summary>
+            
+            </summary>
+            <param name="writer"></param>
+            <param name="id"></param>
+            <param name="resolver"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DummyLib.ITypeResolver">
+            <summary>
+            Used for Resolving Assemblies -- 
+            Used By <see cref="T:DummyLib.AssemblyWriter"/>
+            </summary>
+        </member>
+        <member name="M:DummyLib.ITypeResolver.ResolveType(DummyLib.AssemblyWriter,DummyLib.TypeData,DummyLib.ITypeResolver)">
+            <summary>
+            Resolves A Type
+            </summary>
+            <param name="writer"></param>
+            <param name="id"></param>
+            <param name="resolver"></param>
+            <returns></returns>
         </member>
         <member name="T:DummyLib.CreatedMethod">
             <summary>
@@ -282,6 +384,16 @@
             Events
             </summary>
         </member>
+        <member name="P:DummyLib.ExistingType.Interfaces">
+            <summary>
+            Interfaces
+            </summary>
+        </member>
+        <member name="P:DummyLib.ExistingType.Inherit">
+            <summary>
+            The <see cref="T:dnlib.DotNet.TypeDef"/> The Existing Type Inherits
+            </summary>
+        </member>
         <member name="T:DummyLib.Field`1">
             <summary>
             A Field For <see cref="T:DummyLib.AssemblyWriter"/> (<typeparamref name="T"/>)
@@ -310,12 +422,12 @@
             <para>Does Not Require Any Data</para>
             </summary>
         </member>
-        <member name="T:DummyLib.InstructionCreater">
+        <member name="T:DummyLib.InstructionCreator">
             <summary>
             Creates Instruction With Pointers 
             </summary>
         </member>
-        <member name="M:DummyLib.InstructionCreater.CreateInstruction(dnlib.DotNet.Emit.OpCode,System.Object,System.Int32)">
+        <member name="M:DummyLib.InstructionCreator.CreateInstruction(dnlib.DotNet.Emit.OpCode,System.Object,System.Int32)">
             <summary>
             Creates a <see cref="T:DummyLib.InstructionPoint"/>
             </summary>
@@ -324,7 +436,7 @@
             <param name="entryPoint"></param>
             <returns></returns>
         </member>
-        <member name="M:DummyLib.InstructionCreater.CreateEmptyInstruction(dnlib.DotNet.Emit.OpCode,System.Int32)">
+        <member name="M:DummyLib.InstructionCreator.CreateEmptyInstruction(dnlib.DotNet.Emit.OpCode,System.Int32)">
             <summary>
             Creats an Empty <see cref="T:DummyLib.InstructionPoint"/>
             </summary>
@@ -584,6 +696,12 @@
             </summary>
             <param name="method"></param>
             <param name="methodName"></param>
+        </member>
+        <member name="M:DummyLib.UserMethod.#ctor(DummyLib.MethodCreator)">
+            <summary>
+            Uses the <see cref="P:DummyLib.MethodCreator.Name"/> you provided
+            </summary>
+            <param name="method"></param>
         </member>
         <member name="T:DummyLib.UserType">
             <summary>
