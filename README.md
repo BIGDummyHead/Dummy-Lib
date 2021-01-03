@@ -14,51 +14,58 @@ There are around 6 AssemblyWriter CTORs but I will just use the longest one so y
     
 __________________________________
 
-## Creating a Method 
-
-    //open a writer
-    AssemblyWriter writer = new AssemblyWriter("target.dll");
+## Creating a Method
     
-    //find a TargetType in the target.dll
-    TargetType typeTarg = new TargetType("Namespace.TypeName");
-    
-We also need a class that inherits MethodCreator so let's do that first
-
-    public class MethodToInsert : MethodCreator
+    //implement the IMethodCreator Interface
+    public class MethodsToAdd : IMethodCreator
     {
-        //The interface requires you to add a Type[] property, this array should include the types of your methods arguments as follows
-        public Type[] MethodArgs { get { return new Type[] { typeof(int), typeof(int) }; } }
-        
-        //This override is the name of your method, the method's name will remain as "Method" until overriden
-        public override string Name { get => "Add"; set => base.Name = value; }
-        
-        //now the abstract class does not require you to have a method but the AssemblyWriter.CreateMethod does
-        //your methods name should be named after the overriden name you provide and that is about it for requirements
-        //I will now make a method that adds two numbers together 
-        
-        //(Note: any attribute you add to this method will be applied to the method created)
-        public static int Add(int a, int b)
+    	//initialize Dictionary
+    	public Dictionary<string, Type[]> Methods => new Dictionary<string, Type[]>()
         {
-            return a + b;
-        }
+	    //Add our entrys
+            { nameof(Add), new Type[] { typeof(int), typeof(int) } },
+            { nameof(Sub), new Type[] { typeof(int), typeof(int) } },
+            { nameof(Divide), new Type[] { typeof(int), typeof(int) } },
+            { nameof(Multiply), new Type[] { typeof(int), typeof(int) } },
+        };
+
+	//methods to add
+        public int Add(int a, int b) => a + b;
+        public int Sub(int a, int b) => a - b;
+        public int Divide(int a, int b) => a / b;
+        public int Multiply(int a, int b) => a * b;
     }
     
-Let's head back to our main code
     
-    //open a writer
-    AssemblyWriter writer = new AssemblyWriter("target.dll");
+    string targetDLL = @"Target.dll";
+
+    //IDisposable :)
+    using (AssemblyWriter writer = new AssemblyWriter(targetDLL))
+    {
+    	//find and make Target
+        TargetType _gameStart = writer.FindType("GameStart").ToTarget();
+		
+	//our methods
+        MethodsToAdd _methods = new MethodsToAdd();
+		
+	//add methods
+        CreatedMethod[] _createdMethods = writer.CreateMethods(_gameStart, _methods);
+	
+	string error = string.Empty;
+	
+	bool _save = writer.CanSave(ref error);
+	
+	if(_save)
+	{
+	   writer.Save();
+	}
+	else
+	{
+	   Console.WriteLine($"Cannot Save Because: {error}");	
+	}
+                
+    }
     
-    //find a TargetType in the target.dll
-    TargetType typeTarg = new TargetType("Namespace.TypeName");
-    
-    //make a usermethod with a name and MethodCreator
-    UserMethod yourMethod = new UserMethod(new MethodToInsert(), "AddNums");
-    
-    //let's add our method
-    CreatedMethod method = writer.CreateMethod(typeTarg, yourMethod);
-    
-    //we can then save our method to the output by using the save method
-    writer.Save();
     
 __________________________________
 
@@ -272,9 +279,30 @@ AssemblyWriter also includes two new static methods -> AssemblyWriter.GetFullNam
 +IHasConstructors Interface
 
 +AssemblyWriter
-++ CanSave(bool)
-++ CanWrite => CanSave(false)
+++ CanSave(ref string)
+++ CanWrite => CanSave(ref string) => Hidden string
 ++ DisposeSave => Save On Dispose
+
+-IMultipleMethodCreator
+-MethodCreator
++IMethodCreator
+
+Removed adding Single methods, seemed like a waste.
+
++Extensions
+++ ToTarget(this ITypeDefOrRef tRef) => TargetType
+++ ToTarget(this this MethodDef method) => TargetMethod
+++ GetMethod(this IEnumerable<MethodDef> methods, string name, params Type[] args) => MethodDef
+++ GetMethod(this IEnumerable<MethodDef> methods, string name, TypeSig[] args) => MethodDef
+	
++Provided Overrides for ToString on TargetType and TargetMethod
+
++ Added a new method to AssemblyWriter
++ Find(string typeName)
++ (static) IsReflectionName(string name) => bool
++ (static) IsNestedName(string name) => bool => opposes IsReflectionName(string)
+
++AssemblyWriter Implements ICloneable => AssemblyWriter.Clone() => Object => AssemblyWriter myNewWriter = currentWriter.Clone() as AssemblyWriter => Cloned
 
 __________________________________     
 
