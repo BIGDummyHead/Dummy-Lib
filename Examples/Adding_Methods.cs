@@ -33,15 +33,26 @@ namespace DummyLibCodeExamples
         }
     }
 
-    public class Method : MethodCreator
+    public class Method : IMethodCreator
     {
         public override Type[] MethodArgs { get { return new Type[] { }; } }
 
         public override string Name { get => nameof(SayHelloWorld); set => base.Name = value; }
 
+        public Dictionary<string, Type[]> Methods => new Dictionary<string, Type[]>()
+        {
+            { nameof(SayHelloWorld), new Type[] { } },
+            { nameof(Say), new Type[] { typeof(string) } }
+        };
+
         public void SayHelloWorld()
         {
             Console.WriteLine("Hello World");
+        }
+
+        public void Say(string name)
+        {
+            Console.WriteLine(name);
         }
     }
 }
