@@ -6,8 +6,61 @@
     <members>
         <member name="T:DummyLib.AssemblyWriter">
             <summary>
-            A Writer that helps you Write to an Assembly to edit
+            Deals with writing to DLL and Executables Files
             </summary>
+        </member>
+        <member name="P:DummyLib.AssemblyWriter.Changes">
+            <summary>
+            Changes :: Provides Actions You Did
+            </summary>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.CreateMethods(DummyLib.TargetType,DummyLib.IMethodCreator)">
+            <summary>
+            Creates Method(s)
+            </summary>
+            <param name="target"></param>
+            <param name="methods"></param>
+            <returns></returns>
+        </member>
+        <member name="P:DummyLib.AssemblyWriter.Context">
+            <summary>
+            The context of the Module
+            </summary>
+        </member>
+        <member name="P:DummyLib.AssemblyWriter.Module">
+            <summary>
+            The module you are working on
+            </summary>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.GetMethods(DummyLib.TargetType)">
+            <summary>
+            Returns <see cref="T:DummyLib.TargetMethod"/>[]
+            <para>Returns Specifically <seealso cref="M:DummyLib.TargetMethod.#ctor(System.String,dnlib.DotNet.TypeSig[])"/></para>
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.GetTypes">
+            <summary>
+            Get all the types from the <see cref="P:DummyLib.AssemblyWriter.Module"/> and returns them as <seealso cref="T:DummyLib.TargetType"/>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.FindType(System.String)">
+            <summary>
+            Find a Type
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.#ctor(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="targetFile"></param>
+            <param name="output"></param>
+            <param name="throwInternalErrors"></param>
+            <param name="backUpFile"></param>
         </member>
         <member name="P:DummyLib.AssemblyWriter.TargetFile">
             <summary>
@@ -60,14 +113,44 @@
             <param name="throwInternalErrors"></param>
             <param name="backUpFile"></param>
         </member>
-        <member name="M:DummyLib.AssemblyWriter.#ctor(System.String,System.String,System.Boolean,System.Boolean)">
+        <member name="M:DummyLib.AssemblyWriter.IsReflectionName(System.String)">
+             <summary>
+             Checks if a Type Name is a Reflected Type
+            <para>Reflection : Namespace.Name</para>
+            <para>Nested : Namespace.Name+NestedName</para>
+             </summary>
+             <param name="name"></param>
+             <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.IsNestedName(System.String)">
+             <summary>
+             Checks if a Type Name is a Nested Type
+            <para>Reflection : Namespace.Name</para>
+            <para>Nested : Namespace.Name+NestedName</para>
+             </summary>
+             <param name="name"></param>
+             <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.GetFullName(dnlib.DotNet.TypeDef)">
             <summary>
-            
+            Get the full name of a <see cref="T:dnlib.DotNet.TypeDef"/>
             </summary>
-            <param name="targetFile"></param>
-            <param name="output"></param>
-            <param name="throwInternalErrors"></param>
-            <param name="backUpFile"></param>
+            <param name="def"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.GetFullName(System.Type)">
+            <summary>
+            Get the full name of a <see cref="T:System.Type"/>
+            </summary>
+            <param name="def"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.Clone">
+            <summary>
+            Clones the Assembly Writer
+            Does not create backup file...
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:DummyLib.AssemblyWriter.ThrowException(System.Boolean,System.String)">
             <summary>
@@ -101,7 +184,7 @@
         </member>
         <member name="P:DummyLib.AssemblyWriter.CanWrite">
             <summary>
-            Same as <see cref="!:CanSave(bool)"/> but does not include reasoning
+            Same as <see cref="M:DummyLib.AssemblyWriter.CanSave(System.String@)"/> but does not include reasoning
             </summary>
         </member>
         <member name="P:DummyLib.AssemblyWriter.DisposeSave">
@@ -114,42 +197,6 @@
             WARNING: TAKES EXTRA LONG TO SAVE BUT ENSURES THE MODULE WRITER DOES NOT THROW ERRORS
             </summary>
             <returns></returns>
-        </member>
-        <member name="P:DummyLib.AssemblyWriter.Context">
-            <summary>
-            The context of the Module
-            </summary>
-        </member>
-        <member name="P:DummyLib.AssemblyWriter.Module">
-            <summary>
-            The module you are working on
-            </summary>
-        </member>
-        <member name="M:DummyLib.AssemblyWriter.CreateMethods(DummyLib.TargetType,DummyLib.IMethodCreator)">
-            <summary>
-            Creates Method(s)
-            </summary>
-            <param name="target"></param>
-            <param name="methods"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DummyLib.AssemblyWriter.CreateField``1(DummyLib.TargetType,DummyLib.UserField{``0})">
-            <summary>
-            Creates a Field In The <paramref name="target"/> Type
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="target"></param>
-            <param name="userField"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DummyLib.AssemblyWriter.CreateProperty``1(DummyLib.TargetType,DummyLib.Property{``0},dnlib.DotNet.MethodAttributes)">
-            <summary>
-            Creates a property inside the <paramref name="target"/> 
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="target"></param>
-            <param name="userProp"></param>
-            <param name="attrs"></param>
         </member>
         <member name="M:DummyLib.AssemblyWriter.CopyConstructors(DummyLib.TargetType,DummyLib.IHasConstructors)">
             <summary>
@@ -175,9 +222,18 @@
             <param name="resolver">If not supplied, the Writer will supply one for you <see cref="T:DummyLib.BasicTypeResolver"/></param>
             <returns></returns>
         </member>
-        <member name="M:DummyLib.AssemblyWriter.AddExistingType(dnlib.DotNet.ITypeDefOrRef,DummyLib.ITypeResolver)">
+        <member name="M:DummyLib.AssemblyWriter.AddExistingType(dnlib.DotNet.ITypeDefOrRef,System.String,DummyLib.ITypeResolver)">
             <summary>
             
+            </summary>
+            <param name="existingType"></param>
+            <param name="resolver"></param>
+            <param name="newNamespace"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.AssemblyWriter.AddExistingType(dnlib.DotNet.ITypeDefOrRef,DummyLib.ITypeResolver)">
+            <summary>
+            Add an Existing Type with the same namespace as the <paramref name="existingType"/>
             </summary>
             <param name="existingType"></param>
             <param name="resolver"></param>
@@ -228,65 +284,23 @@
             <param name="removalPoints"></param>
             <returns></returns>
         </member>
-        <member name="M:DummyLib.AssemblyWriter.GetMethods(DummyLib.TargetType)">
+        <member name="M:DummyLib.AssemblyWriter.CreateField``1(DummyLib.TargetType,DummyLib.UserField{``0})">
             <summary>
-            Returns <see cref="T:DummyLib.TargetMethod"/>[]
-            <para>Returns Specifically <seealso cref="M:DummyLib.TargetMethod.#ctor(System.String,dnlib.DotNet.TypeSig[])"/></para>
+            Creates a Field In The <paramref name="target"/> Type
             </summary>
+            <typeparam name="T"></typeparam>
             <param name="target"></param>
+            <param name="userField"></param>
             <returns></returns>
         </member>
-        <member name="M:DummyLib.AssemblyWriter.GetTypes">
+        <member name="M:DummyLib.AssemblyWriter.CreateProperty``1(DummyLib.TargetType,DummyLib.Property{``0},dnlib.DotNet.MethodAttributes)">
             <summary>
-            Get all the types from the <see cref="P:DummyLib.AssemblyWriter.Module"/> and returns them as <seealso cref="T:DummyLib.TargetType"/>
+            Creates a property inside the <paramref name="target"/> 
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DummyLib.AssemblyWriter.FindType(System.String)">
-            <summary>
-            Find a Type
-            </summary>
-            <param name="name"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DummyLib.AssemblyWriter.IsReflectionName(System.String)">
-             <summary>
-             Checks if a Type Name is a Reflected Type
-            <para>Reflection : Namespace.Name</para>
-            <para>Nested : Namespace.Name+NestedName</para>
-             </summary>
-             <param name="name"></param>
-             <returns></returns>
-        </member>
-        <member name="M:DummyLib.AssemblyWriter.IsNestedName(System.String)">
-             <summary>
-             Checks if a Type Name is a Nested Type
-            <para>Reflection : Namespace.Name</para>
-            <para>Nested : Namespace.Name+NestedName</para>
-             </summary>
-             <param name="name"></param>
-             <returns></returns>
-        </member>
-        <member name="M:DummyLib.AssemblyWriter.GetFullName(dnlib.DotNet.TypeDef)">
-            <summary>
-            Get the full name of a <see cref="T:dnlib.DotNet.TypeDef"/>
-            </summary>
-            <param name="def"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DummyLib.AssemblyWriter.GetFullName(System.Type)">
-            <summary>
-            Get the full name of a <see cref="T:System.Type"/>
-            </summary>
-            <param name="def"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DummyLib.AssemblyWriter.Clone">
-            <summary>
-            Clones the Assembly Writer
-            Does not create backup file...
-            </summary>
-            <returns></returns>
+            <typeparam name="T"></typeparam>
+            <param name="target"></param>
+            <param name="userProp"></param>
+            <param name="attrs"></param>
         </member>
         <member name="T:DummyLib.ResolveData">
             <summary>
@@ -329,13 +343,14 @@
             The Resolved Type Names
             </summary>
         </member>
-        <member name="M:DummyLib.BasicTypeResolver.ResolveType(DummyLib.AssemblyWriter,DummyLib.ResolveData,DummyLib.ITypeResolver)">
+        <member name="M:DummyLib.BasicTypeResolver.ResolveType(DummyLib.AssemblyWriter,DummyLib.ResolveData,System.String,DummyLib.ITypeResolver)">
             <summary>
             
             </summary>
             <param name="writer"></param>
             <param name="rd"></param>
             <param name="resolver"></param>
+            <param name="_namespace">The new namespace of the resolved Type</param>
             <returns></returns>
         </member>
         <member name="T:DummyLib.ITypeResolver">
@@ -344,12 +359,13 @@
             Used By <see cref="T:DummyLib.AssemblyWriter"/>
             </summary>
         </member>
-        <member name="M:DummyLib.ITypeResolver.ResolveType(DummyLib.AssemblyWriter,DummyLib.ResolveData,DummyLib.ITypeResolver)">
+        <member name="M:DummyLib.ITypeResolver.ResolveType(DummyLib.AssemblyWriter,DummyLib.ResolveData,System.String,DummyLib.ITypeResolver)">
             <summary>
-            Resolves A Type
+            Resolve A Type 
             </summary>
             <param name="writer"></param>
             <param name="rd"></param>
+            <param name="_namespace"></param>
             <param name="resolver"></param>
             <returns></returns>
         </member>
@@ -422,6 +438,113 @@
             <summary>
             The <see cref="T:dnlib.DotNet.TypeDef"/> The Existing Type Inherits
             </summary>
+        </member>
+        <member name="T:DummyLib.Extensions">
+            <summary>
+            Extensions For Dnlib Types and or DummyLib Types
+            </summary>
+        </member>
+        <member name="M:DummyLib.Extensions.ToTarget(dnlib.DotNet.ITypeDefOrRef)">
+            <summary>
+            Takes a <see cref="T:dnlib.DotNet.ITypeDefOrRef"/> and makes a <see cref="T:DummyLib.TargetType"/>
+            </summary>
+            <param name="tRef"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.Extensions.ToType(DummyLib.SpecialTargetType)">
+            <summary>
+            Returns a <see cref="T:DummyLib.SpecialTargetType"/> back to a <seealso cref="T:dnlib.DotNet.TypeDef"/>
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.Extensions.GetMethod(System.Collections.Generic.IEnumerable{dnlib.DotNet.MethodDef},System.String,System.Type[])">
+            <summary>
+            Gets A Method From A <see cref="T:System.Collections.Generic.IEnumerable`1"/> From A <seealso cref="T:System.Type"/>[]
+            </summary>
+            <param name="methods"></param>
+            <param name="args"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.Extensions.GetMethod(System.Collections.Generic.IEnumerable{dnlib.DotNet.MethodDef},System.String,dnlib.DotNet.TypeSig[])">
+            <summary>
+            Gets A Method From A <see cref="T:System.Collections.Generic.IEnumerable`1"/> From A <seealso cref="T:dnlib.DotNet.TypeSig"/>[]
+            </summary>
+            <param name="methods"></param>
+            <param name="args"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.Extensions.GetMethod(dnlib.DotNet.TypeDef,System.String,System.Type[])">
+            <summary>
+            Get a method from a TypeDef providing a <see cref="T:System.String"/> <paramref name="name"/> and providing <seealso cref="T:System.Type"/>[] <paramref name="args"/>
+            </summary>
+            <param name="receiveMethods"></param>
+            <param name="name"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.Extensions.GetMethod(dnlib.DotNet.TypeDef,System.String,dnlib.DotNet.TypeSig[])">
+            <summary>
+            Get a method from a TypeDef providing a <see cref="T:System.String"/> <paramref name="name"/> and providing <seealso cref="T:dnlib.DotNet.TypeSig"/>[] <paramref name="args"/>
+            </summary>
+            <param name="receiveMethods"></param>
+            <param name="name"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.Extensions.ToTarget(dnlib.DotNet.MethodDef)">
+            <summary>
+            Takes a <see cref="T:dnlib.DotNet.MethodDef"/> and makes a <seealso cref="T:DummyLib.SpecialTargetMethod"/>
+            </summary>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.Extensions.ToMethod(DummyLib.SpecialTargetMethod)">
+            <summary>
+            Takes a <see cref="T:DummyLib.SpecialTargetMethod"/> and makes a <seealso cref="T:dnlib.DotNet.MethodDef"/>
+            </summary>
+            <param name="specialMethod"></param>
+            <returns></returns>
+        </member>
+        <member name="P:DummyLib.Extensions.MainContext">
+            <summary>
+            The main context of <see cref="M:DummyLib.Extensions.CreateModule(System.Reflection.Module)"/>
+            </summary>
+        </member>
+        <member name="M:DummyLib.Extensions.CreateModule(System.Reflection.Module)">
+            <summary>
+            Creates A Module From See <see cref="T:System.Reflection.Module"/>
+            <para>Mainly Used As <seealso cref="T:System.Type"/>.<seealso cref="T:System.Reflection.Module"/>.<seealso cref="M:DummyLib.Extensions.CreateModule(System.Reflection.Module)"/></para>
+            </summary>
+            <param name="module"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.Extensions.Find(dnlib.DotNet.ModuleDefMD,System.String)">
+            <summary>
+            Easily Find A Type
+            </summary>
+            <param name="module"></param>
+            <param name="fullName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.Extensions.CreateInstruction(dnlib.DotNet.Emit.OpCode,System.Object,System.Int32)">
+            <summary>
+            Create an <see cref="T:DummyLib.InstructionPoint"/> From a OpCode
+            </summary>
+            <param name="op"></param>
+            <param name="opperand"></param>
+            <param name="replacementPoint"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DummyLib.Extensions.CreateEmptyInstruction(dnlib.DotNet.Emit.OpCode,System.Int32)">
+            <summary>
+            Create an Empty <see cref="T:DummyLib.InstructionPoint"/>
+            </summary>
+            <param name="op"></param>
+            <param name="replacementPoint"></param>
+            <returns></returns>
         </member>
         <member name="T:DummyLib.Field`1">
             <summary>
@@ -505,6 +628,12 @@
             <param name="instruction"></param>
             <param name="replacementPoint"></param>
         </member>
+        <member name="M:DummyLib.InstructionPoint.ToString">
+            <summary>
+            A Overview Of Your <see cref="T:DummyLib.InstructionPoint"/>
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:DummyLib.Property`1">
             <summary>
             An abstract class, this class is meant to generate properties inside of your <see cref="T:DummyLib.TargetType"/>
@@ -522,7 +651,7 @@
         </member>
         <member name="P:DummyLib.Property`1.Val">
             <summary>
-            Property Gotten By <see cref="M:DummyLib.AssemblyWriter.CreateProperty``1(DummyLib.TargetType,DummyLib.Property{``0},dnlib.DotNet.MethodAttributes)"/>
+            Leave Me Empty
             </summary>
         </member>
         <member name="M:DummyLib.Property`1.GetMethod">
@@ -562,6 +691,11 @@
             </summary>
             <param name="name"></param>
         </member>
+        <member name="P:DummyLib.EmptyProperty`1.Val">
+            <summary>
+            EMPTY
+            </summary>
+        </member>
         <member name="M:DummyLib.EmptyProperty`1.GetMethod">
             <summary>
             
@@ -572,6 +706,38 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="T:DummyLib.SpecialTargetMethod">
+            <summary>
+            A Special <see cref="T:DummyLib.TargetMethod"/>
+            </summary>
+        </member>
+        <member name="P:DummyLib.SpecialTargetMethod.Target">
+            <summary>
+            The Target
+            </summary>
+        </member>
+        <member name="M:DummyLib.SpecialTargetMethod.#ctor(dnlib.DotNet.MethodDef)">
+            <summary>
+            
+            </summary>
+            <param name="method"></param>
+        </member>
+        <member name="T:DummyLib.SpecialTargetType">
+            <summary>
+            A Special <see cref="T:DummyLib.TargetType"/>
+            </summary>
+        </member>
+        <member name="P:DummyLib.SpecialTargetType.Target">
+            <summary>
+            Target
+            </summary>
+        </member>
+        <member name="M:DummyLib.SpecialTargetType.#ctor(dnlib.DotNet.TypeDef)">
+            <summary>
+            
+            </summary>
+            <param name="_type"></param>
         </member>
         <member name="T:DummyLib.TargetMethod">
             <summary>
