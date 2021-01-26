@@ -274,18 +274,25 @@ AssemblyWriter also allows you to save and then dispose at the same time! -> wri
 
 AssemblyWriter also includes two new static methods -> AssemblyWriter.GetFullName(Type t); AssemblyWriter.GetFullName(TypeDef tDef);
 
-+UserType Class
-+ExistingType Class
-+IHasConstructors Interface
++Added Types
 
-+AssemblyWriter
-++ CanSave(ref string)
-++ CanWrite => CanSave(ref string) => Hidden string
-++ DisposeSave => Save On Dispose
++UserType (Class)
++ExistingType (Class)
++IHasConstructors (Interface)
++IMethodCreator (Interface)
 
--IMultipleMethodCreator
--MethodCreator
-+IMethodCreator
+-Removed Types
+
+-IMultipleMethodCreator (Interface)
+-MethodCreator (Class)
+
++Added To AssemblyWriter
+
++ CanSave(ref string)
++ CanWrite => CanSave(ref string) => Hidden string
++ DisposeSave => Save On Dispose
+
+
 
 Removed adding Single methods, seemed like a waste.
 
