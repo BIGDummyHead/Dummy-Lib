@@ -290,6 +290,7 @@ AssemblyWriter also includes two new static methods -> AssemblyWriter.GetFullNam
 Removed adding Single methods, seemed like a waste.
 
 +Extensions
+
 ++ ToTarget(this ITypeDefOrRef tRef) => TargetType
 ++ ToTarget(this this MethodDef method) => TargetMethod
 ++ GetMethod(this IEnumerable<MethodDef> methods, string name, params Type[] args) => MethodDef
