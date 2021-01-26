@@ -291,10 +291,10 @@ Removed adding Single methods, seemed like a waste.
 
 +Extensions
 
-++ ToTarget(this ITypeDefOrRef tRef) => TargetType
-++ ToTarget(this this MethodDef method) => TargetMethod
-++ GetMethod(this IEnumerable<MethodDef> methods, string name, params Type[] args) => MethodDef
-++ GetMethod(this IEnumerable<MethodDef> methods, string name, TypeSig[] args) => MethodDef
++ ToTarget(this ITypeDefOrRef tRef) => TargetType
++ ToTarget(this this MethodDef method) => TargetMethod
++ GetMethod(this IEnumerable<MethodDef> methods, string name, params Type[] args) => MethodDef
++ GetMethod(this IEnumerable<MethodDef> methods, string name, TypeSig[] args) => MethodDef
 	
 +Provided Overrides for ToString on TargetType and TargetMethod
 
