@@ -1,0 +1,11 @@
+C:\Users\shawn\source\repos\Dummy-Lib472NetFrame\Dummy-Lib\bin\Debug\Dummy-Lib.dll.config
+C:\Users\shawn\source\repos\Dummy-Lib472NetFrame\Dummy-Lib\bin\Debug\Dummy-Lib.dll
+C:\Users\shawn\source\repos\Dummy-Lib472NetFrame\Dummy-Lib\bin\Debug\Dummy-Lib.pdb
+C:\Users\shawn\source\repos\Dummy-Lib472NetFrame\Dummy-Lib\obj\Debug\Dummy-Lib.csprojAssemblyReference.cache
+C:\Users\shawn\source\repos\Dummy-Lib472NetFrame\Dummy-Lib\obj\Debug\Dummy-Lib.csproj.CoreCompileInputs.cache
+C:\Users\shawn\source\repos\Dummy-Lib472NetFrame\Dummy-Lib\obj\Debug\Dummy-Lib.dll
+C:\Users\shawn\source\repos\Dummy-Lib472NetFrame\Dummy-Lib\obj\Debug\Dummy-Lib.pdb
+C:\Users\shawn\source\repos\Dummy-Lib472NetFrame\Dummy-Lib\bin\Debug\dnlib.dll
+C:\Users\shawn\source\repos\Dummy-Lib472NetFrame\Dummy-Lib\bin\Debug\dnlib.xml
+C:\Users\shawn\source\repos\Dummy-Lib472NetFrame\Dummy-Lib\obj\Debug\Dummy-Lib.csproj.CopyComplete
+C:\Users\shawn\source\repos\Dummy-Lib472NetFrame\Dummy-Lib\bin\Debug\Dummy-Lib.xml
