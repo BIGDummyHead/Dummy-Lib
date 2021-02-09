@@ -274,26 +274,34 @@ AssemblyWriter also allows you to save and then dispose at the same time! -> wri
 
 AssemblyWriter also includes two new static methods -> AssemblyWriter.GetFullName(Type t); AssemblyWriter.GetFullName(TypeDef tDef);
 
-+UserType Class
-+ExistingType Class
-+IHasConstructors Interface
++Added Types
 
-+AssemblyWriter
-++ CanSave(ref string)
-++ CanWrite => CanSave(ref string) => Hidden string
-++ DisposeSave => Save On Dispose
++UserType (Class)
++ExistingType (Class)
++IHasConstructors (Interface)
++IMethodCreator (Interface)
 
--IMultipleMethodCreator
--MethodCreator
-+IMethodCreator
+-Removed Types
+
+-IMultipleMethodCreator (Interface)
+-MethodCreator (Class)
+
++Added To AssemblyWriter
+
++ CanSave(ref string)
++ CanWrite => CanSave(ref string) => Hidden string
++ DisposeSave => Save On Dispose
+
+
 
 Removed adding Single methods, seemed like a waste.
 
 +Extensions
-++ ToTarget(this ITypeDefOrRef tRef) => TargetType
-++ ToTarget(this this MethodDef method) => TargetMethod
-++ GetMethod(this IEnumerable<MethodDef> methods, string name, params Type[] args) => MethodDef
-++ GetMethod(this IEnumerable<MethodDef> methods, string name, TypeSig[] args) => MethodDef
+
++ ToTarget(this ITypeDefOrRef tRef) => TargetType
++ ToTarget(this this MethodDef method) => TargetMethod
++ GetMethod(this IEnumerable<MethodDef> methods, string name, params Type[] args) => MethodDef
++ GetMethod(this IEnumerable<MethodDef> methods, string name, TypeSig[] args) => MethodDef
 	
 +Provided Overrides for ToString on TargetType and TargetMethod
 
